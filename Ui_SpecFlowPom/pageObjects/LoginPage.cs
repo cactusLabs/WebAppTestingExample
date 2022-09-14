@@ -1,13 +1,22 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using WebAppTestingExample.helpers;
 
 namespace WebAppTestingExample.pageObjects
 {
-    class LoginPage
+    internal class LoginPage
     {
-        Configuration configuration;
         IWebDriver driver;
-        string test_url = "https://www.test.com";
+        BrowserDrivers browserDrivers = new BrowserDrivers();
+
+        /*
+         * 
+         * URLs
+         *
+         */
+
+        string loginPageUrl = "https://login.elucidat.com/";
 
         /*
          * 
@@ -15,11 +24,20 @@ namespace WebAppTestingExample.pageObjects
          *
          */
 
-        string usernameEntry = "//xpath[@class, contains()]";
+        string usernameEntry = "//input[@id='email']";
         string passwordEntry = "//xpath[@class, contains()]";
 
-        
+        /*
+         * 
+         * Methods
+         *
+         */
 
+        internal void GoToLoginPage() 
+        {
+            driver = new ChromeDriver(browserDrivers.GetChromeDriverPath());
+            driver.Navigate().GoToUrl(loginPageUrl);
+        }
 
     }
 }

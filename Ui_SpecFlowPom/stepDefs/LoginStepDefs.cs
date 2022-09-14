@@ -1,20 +1,22 @@
-﻿using OpenQA.Selenium;
-using TechTalk.SpecFlow;
-using WebAppTestingExample.helpers;
+﻿using TechTalk.SpecFlow;
+using WebAppTestingExample.pageObjects;
 
 namespace WebAppTestingExample.stepDefs
 {
-    class LoginStepDefs
+    [Binding]
+    public class LoginStepDefs
     {
+        LoginPage loginPage = new LoginPage();
+
         /*
          * 
          * Givens
          * 
          */
-        [Given(@"^I am on the login page'$")]
-        public void GivenIamOnTheLoginPage()
+        [Given(@"I am on the login page")]
+        public void GoToLoginPage()
         {
-            
+            loginPage.GoToLoginPage();
         }
 
         /*

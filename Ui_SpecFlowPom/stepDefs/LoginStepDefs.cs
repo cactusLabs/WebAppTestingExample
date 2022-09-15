@@ -22,8 +22,9 @@ namespace WebAppTestingExample.stepDefs
 
         public LoginStepDefs()
         {
-            if(driver != null)
+            if (driver != null)
             {
+                driver.Quit();
                 driver.Dispose();
             }
             driver = new ChromeDriver(browserDrivers.GetChromeDriverPath());
@@ -51,7 +52,7 @@ namespace WebAppTestingExample.stepDefs
         {
             loginPage.EnterUsername(driver, config.GetUsername());
             loginPage.EnterPassword(driver, config.GetPassword());
-            loginPage.Login(driver);
+            loginPage.ClickLoginButton(driver);
         }
 
         /*
@@ -60,5 +61,20 @@ namespace WebAppTestingExample.stepDefs
          * 
          */
 
+        [Then(@"I expect to be logged in as that user")]
+        public void ExpectToBeLoggedInAs()
+        {
+            loginPage.ExpectToBeLoggedInAs(driver, config.GetUsername());
+        }
+
+        [AfterScenario]
+        public void closeBrowser()
+        {
+            if (driver != null)
+            {
+                driver.Quit();
+                driver.Dispose();
+            }
+        }
     }
 }

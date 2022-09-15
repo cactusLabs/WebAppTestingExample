@@ -100,6 +100,9 @@ testRunner.Given("I am on the login page", ((string)(null)), ((TechTalk.SpecFlow
 #line 11
 testRunner.When("I log in using known credentials", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
+#line 12
+testRunner.Then("I expect to be logged in as that user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
             }
             this.ScenarioCleanup();
         }

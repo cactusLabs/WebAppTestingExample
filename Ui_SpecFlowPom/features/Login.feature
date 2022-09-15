@@ -9,7 +9,7 @@ Scenarios to validate the login feature including cases:
 Scenario: I can log in with known credentials
 Given I am on the login page
 When I log in using known credentials
-#Then I expect to be on the landing page
+Then I expect to be logged in as that user
 
 
 

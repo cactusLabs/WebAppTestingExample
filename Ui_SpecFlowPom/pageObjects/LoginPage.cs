@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using WebAppTestingExample.configs;
 using WebAppTestingExample.helpers;
 
 namespace WebAppTestingExample.pageObjects
@@ -12,8 +11,7 @@ namespace WebAppTestingExample.pageObjects
          * URLs
          *
          */
-
-        string loginPageUrl = "https://gearspace.com/";
+        string loginPageUrl = "https://gearspace.com/board";
 
         /*
          * 
@@ -26,6 +24,8 @@ namespace WebAppTestingExample.pageObjects
         string privacyModal = "//*[@role='dialog' and @aria-modal='true']//*[contains(text(), 'We value your privacy')] ";
         string privacyModalAgree = "*//button/span[contains(text(), 'AGREE')]";
         string usernameEntry = "//input[@id='navbar_username']";
+        string welcome = "//*[contains(text(), 'welcome,')]";
+        string welcomeUsername = "//*[@class='username']";
 
         /*
          * 
@@ -54,10 +54,17 @@ namespace WebAppTestingExample.pageObjects
             Selenium.FindElement(driver, By.XPath(passwordEntry), 15).SendKeys(password);
         }
 
-        internal void Login(IWebDriver driver)
+        internal void ClickLoginButton(IWebDriver driver)
         {
             Selenium.FindElement(driver, By.XPath(loginButton), 15).Click();
         }
 
+        internal void ExpectToBeLoggedInAs(IWebDriver driver, string username)
+        {
+            string thisUsernameLocator = welcomeUsername + "/*[contains(text(), '" + username + "')]";
+            
+            Assert.That(Selenium.IsElementPresent(driver, By.XPath(welcome), 15), Is.True);
+            Assert.That(Selenium.IsElementPresent(driver, By.XPath(thisUsernameLocator), 15), Is.True);
+        }
     }
 }

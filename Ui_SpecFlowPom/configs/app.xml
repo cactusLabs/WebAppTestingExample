@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <appSettings>
-    <add key="BaseUrl" value="https://www.test.com"/>
+    <add key="Users">
+      <add key="Admin">
+        <add key="Username" value="cactusLabs"/>
+        <add key="Password" value="my3cn!5SX#Yine5"/>
+      </add>
+    </add>
   </appSettings>
 </configuration>

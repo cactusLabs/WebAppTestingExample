@@ -7,8 +7,7 @@ namespace WebAppTestingExample.pageObjects
 {
     internal class LoginPage
     {
-        IWebDriver driver;
-        BrowserDrivers browserDrivers = new BrowserDrivers();
+        Configuration configuration = new Configuration();
 
         /*
          * 
@@ -16,16 +15,17 @@ namespace WebAppTestingExample.pageObjects
          *
          */
 
-        string loginPageUrl = "https://login.elucidat.com/";
+        string loginPageUrl = "https://gearspace.com/";
 
         /*
          * 
          * Locators
          *
          */
-
-        string usernameEntry = "//input[@id='email']";
-        string passwordEntry = "//xpath[@class, contains()]";
+        string passwordEntry = "//input[@id='navbar_password']";
+        string privacyModal = "//*[@role='dialog' and @aria-modal='true']//*[contains(text(), 'We value your privacy')] ";
+        string privacyModalAgree = "*//button/span[contains(text(), 'AGREE')]";
+        string usernameEntry = "//input[@id='navbar_username']";
 
         /*
          * 
@@ -33,10 +33,20 @@ namespace WebAppTestingExample.pageObjects
          *
          */
 
-        internal void GoToLoginPage() 
+        internal void GoToLoginPage(IWebDriver driver) 
         {
-            driver = new ChromeDriver(browserDrivers.GetChromeDriverPath());
             driver.Navigate().GoToUrl(loginPageUrl);
+
+            // Handle privacy modal if present 
+            if(Selenium.IsElementPresent(driver, By.XPath(privacyModal), 15))
+            {
+                driver.FindElement(By.XPath(privacyModalAgree)).Click();
+            }
+        }
+
+        internal void EnterUsername()
+        {
+
         }
 
     }

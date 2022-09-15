@@ -4,12 +4,12 @@ namespace WebAppTestingExample.helpers
 {
     public class Configuration
     {
-        public static string GetConfig()
-        {
-            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-            Console.WriteLine("Test baseUrl: " + baseUrl);
+        //public static string GetConfig()
+        //{
+        //    var userName = ConfigurationManager.AppSettings[""];
+        //    Console.WriteLine("Test baseUrl: " + baseUrl);
 
-            return baseUrl;
-        }
+        //    return baseUrl;
+        //}
     }
 }

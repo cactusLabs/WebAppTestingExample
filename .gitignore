@@ -4,3 +4,6 @@
 */**/obj/Release
 */**/obj
 */**/.vs
+sshKey
+sshKey.pub
+*/**/configs

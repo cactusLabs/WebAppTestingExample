@@ -1,22 +1,17 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using WebAppTestingExample.helpers;
 
 namespace WebAppTestingExample.pageObjects
 {
     internal class LoginPage
     {
-        IWebDriver driver;
-        BrowserDrivers browserDrivers = new BrowserDrivers();
-
         /*
          * 
          * URLs
          *
          */
-
-        string loginPageUrl = "https://login.elucidat.com/";
+        string loginPageUrl = "https://gearspace.com/board";
 
         /*
          * 
@@ -24,8 +19,13 @@ namespace WebAppTestingExample.pageObjects
          *
          */
 
-        string usernameEntry = "//input[@id='email']";
-        string passwordEntry = "//xpath[@class, contains()]";
+        string loginButton = "//input[@type='submit' and @class='userbar-btn login-btn'] ";
+        string passwordEntry = "//input[@id='navbar_password']";
+        string privacyModal = "//*[@role='dialog' and @aria-modal='true']//*[contains(text(), 'We value your privacy')] ";
+        string privacyModalAgree = "*//button/span[contains(text(), 'AGREE')]";
+        string usernameEntry = "//input[@id='navbar_username']";
+        string welcome = "//*[contains(text(), 'welcome,')]";
+        string welcomeUsername = "//*[@class='username']";
 
         /*
          * 
@@ -33,11 +33,38 @@ namespace WebAppTestingExample.pageObjects
          *
          */
 
-        internal void GoToLoginPage() 
+        internal void GoToLoginPage(IWebDriver driver) 
         {
-            driver = new ChromeDriver(browserDrivers.GetChromeDriverPath());
             driver.Navigate().GoToUrl(loginPageUrl);
+
+            // Handle privacy modal if present 
+            if(Selenium.IsElementPresent(driver, By.XPath(privacyModal), 15))
+            {
+                driver.FindElement(By.XPath(privacyModalAgree)).Click();
+            }
         }
 
+        internal void EnterUsername(IWebDriver driver, string username)
+        {
+            Selenium.FindElement(driver, By.XPath(usernameEntry), 15).SendKeys(username);
+        }
+
+        internal void EnterPassword(IWebDriver driver, string password)
+        {
+            Selenium.FindElement(driver, By.XPath(passwordEntry), 15).SendKeys(password);
+        }
+
+        internal void ClickLoginButton(IWebDriver driver)
+        {
+            Selenium.FindElement(driver, By.XPath(loginButton), 15).Click();
+        }
+
+        internal void ExpectToBeLoggedInAs(IWebDriver driver, string username)
+        {
+            string thisUsernameLocator = welcomeUsername + "/*[contains(text(), '" + username + "')]";
+            
+            Assert.That(Selenium.IsElementPresent(driver, By.XPath(welcome), 15), Is.True);
+            Assert.That(Selenium.IsElementPresent(driver, By.XPath(thisUsernameLocator), 15), Is.True);
+        }
     }
 }

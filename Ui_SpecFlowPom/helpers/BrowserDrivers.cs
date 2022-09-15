@@ -1,4 +1,7 @@
-﻿namespace WebAppTestingExample.helpers
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+namespace WebAppTestingExample.helpers
 {
     class BrowserDrivers
     {

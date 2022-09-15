@@ -8,7 +8,7 @@ Scenarios to validate the login feature including cases:
 @loginService
 Scenario: I can log in with known credentials
 Given I am on the login page
-#When I log in using known credentials
+When I log in using known credentials
 #Then I expect to be on the landing page
 
 

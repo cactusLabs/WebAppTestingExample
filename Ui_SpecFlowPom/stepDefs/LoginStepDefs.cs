@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using TechTalk.SpecFlow;
+using WebAppTestingExample.configs;
 using WebAppTestingExample.helpers;
 using WebAppTestingExample.pageObjects;
 
@@ -13,6 +14,11 @@ namespace WebAppTestingExample.stepDefs
         IWebDriver driver;
         BrowserDrivers browserDrivers = new BrowserDrivers();
         LoginPage loginPage = new LoginPage();
+
+        // Configurations should be handled better than this...
+        // but for ease of demo, get credentials from a
+        // class that has been included in .gitignore
+        Config config = new Config();
 
         public LoginStepDefs()
         {
@@ -43,13 +49,9 @@ namespace WebAppTestingExample.stepDefs
         [When(@"I log in using known credentials")]
         public void LoginKnownCredentials()
         {
-            // Send keys to username
-             
-
-            // Send keys to password
-
-            // Click login
-
+            loginPage.EnterUsername(driver, config.GetUsername());
+            loginPage.EnterPassword(driver, config.GetPassword());
+            loginPage.Login(driver);
         }
 
         /*

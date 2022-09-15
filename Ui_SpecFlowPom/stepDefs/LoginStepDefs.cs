@@ -55,6 +55,22 @@ namespace WebAppTestingExample.stepDefs
             loginPage.ClickLoginButton(driver);
         }
 
+        [When(@"I log in using an unknown username")]
+        public void LoginUnKnownUsername()
+        {
+            loginPage.EnterUsername(driver, "TotallyNotAQuestionableUsernameAtAll");
+            loginPage.EnterPassword(driver, config.GetPassword());
+            loginPage.ClickLoginButton(driver);
+        }
+
+        [When(@"I log in using known username and incorrect password")]
+        public void LoginKnownUserUnknownPassword()
+        {
+            loginPage.EnterUsername(driver, config.GetUsername());
+            loginPage.EnterPassword(driver, "secretSquirrels");
+            loginPage.ClickLoginButton(driver);
+        }
+
         /*
          * 
          * Then
@@ -66,6 +82,20 @@ namespace WebAppTestingExample.stepDefs
         {
             loginPage.ExpectToBeLoggedInAs(driver, config.GetUsername());
         }
+
+        [Then(@"I do not expect to be logged in")]
+        public void ExpectToNotBeLoggedIn()
+        {
+            loginPage.ExpectToNotBeLoggedIn(driver);
+        }
+
+        
+
+        /*
+        * 
+        * Teardown
+        * 
+        */
 
         [AfterScenario]
         public void closeBrowser()
